@@ -40,7 +40,7 @@ app.listen(process.env.REST_PORT, () => {
 
 function verifyAPIKey(req, res, next) {
   const API_KEY = req.headers["x-auth-key"];
-  if (API_KEY === global.env.API_KEY) {
+  if (API_KEY === process.env.API_KEY) {
     next();
   } else {
     res.status(403).send("Unauthorized");
