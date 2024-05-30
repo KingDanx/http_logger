@@ -5,8 +5,8 @@ const express = require("express");
 env.config({ path: "./config/.config" });
 
 const app = express();
-app.use(verifyAPIKey);
 app.use(express.json());
+app.use(verifyAPIKey);
 
 const logger = new LiteLogger(
   process.env.LOG_DIR,
