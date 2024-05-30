@@ -6,6 +6,7 @@ env.config({ path: "./config/.config" });
 
 const app = express();
 app.use(verifyAPIKey);
+app.use(express.json());
 
 const logger = new LiteLogger(
   process.env.LOG_DIR,
@@ -15,9 +16,22 @@ const logger = new LiteLogger(
 );
 
 app.post("log", (req, res) => {
-  const { message, type } = req.body;
+  try {
+    const { message, type } = req.body;
 
-  logger.log(message, type.toUpperCase());
+    if (!message || !type) {
+      const error = new Error(
+        "Message or type was not provided in the request body"
+      );
+      throw error;
+    }
+
+    logger.log(message, type.toUpperCase());
+
+    res.send({ success: true });
+  } catch (e) {
+    res.status(500).send({ error: e.toString() });
+  }
 });
 
 app.listen(process.env.REST_PORT, () => {
