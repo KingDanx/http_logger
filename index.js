@@ -15,7 +15,7 @@ const logger = new LiteLogger(
   process.env.LOG_KEEP_DAYS
 );
 
-app.post("log", (req, res) => {
+app.post("/log", (req, res) => {
   try {
     const { message, type } = req.body;
 
