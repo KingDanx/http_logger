@@ -35,7 +35,7 @@ app.post("log", (req, res) => {
 });
 
 app.listen(process.env.REST_PORT, () => {
-  console.log("Log REST listening on port:", process.env.GTFS_REST_PORT);
+  console.log("Log REST listening on port:", process.env.REST_PORT);
 });
 
 function verifyAPIKey(req, res, next) {
